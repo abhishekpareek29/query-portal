@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
 	$handle = fopen($_FILES['filename']['tmp_name'], "r");
 
 	while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-		$import="INSERT into user(u_name,u_email,u_pass) values('$data[0]','$data[1]','$data[2]')";
+		$import="INSERT into user(u_name,u_email,u_pass,role_id) values('$data[0]','$data[1]','$data[2]','$data[3]')";
 
 		mysql_query($import) or die(mysql_error());
 	}
