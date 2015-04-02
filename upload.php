@@ -47,6 +47,25 @@ if (isset($_POST['submit'])) {
 
 	print "Import done";
 
+
+   $to = "abhishekpareek29@gmail.com";
+   $subject = "This is a mail from local host";
+   $message = "Sign up as mentor at query portal";
+   $header = "From:abhishek.pareek@innoraft.com \r\n";
+   $retval = mail ($to,$subject,$message,$header);
+   if( $retval == true )  
+   {
+      echo "\nMessage sent successfully...";
+   }
+   else
+   {
+      echo "\nMessage could not be sent...";
+   }
+
+
+
+
+
 	//view upload form
 }else {
 
