@@ -3,6 +3,38 @@
 <head>
 <title>Upload mentors details</title>
 </head>
+<style type="text/css">
+body {
+	background: #E3F4FC;
+	font: normal 14px/30px Helvetica, Arial, sans-serif;
+	color: #2b2b2b;
+}
+a {
+	color:#898989;
+	font-size:14px;
+	font-weight:bold;
+	text-decoration:none;
+}
+a:hover {
+	color:#CC0033;
+}
+
+h1 {
+	font: bold 14px Helvetica, Arial, sans-serif;
+	color: #CC0033;
+}
+h2 {
+	font: bold 14px Helvetica, Arial, sans-serif;
+	color: #898989;
+}
+#container {
+	background: #CCC;
+	margin: 100px auto;
+	width: 945px;
+}
+#form 			{padding: 20px 150px;}
+#form input     {margin-bottom: 20px;}
+</style>
 <body>
 <div id="container">
 <div id="form">
