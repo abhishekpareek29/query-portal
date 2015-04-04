@@ -1,0 +1,71 @@
+body{
+	background-color: black;
+}
+
+
+img{
+	width: 100%;
+	height: 100%;
+}
+
+/* css of card at home page*/
+div.login-card {
+	position: relative;
+	width: 600px;
+	height: 550px;
+	background-color: black;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	margin-bottom: 75px;
+	border-radius: 6px;
+	box-shadow: 0px 0px 100px red;
+}
+
+div.top{
+	position:relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 85%;
+	height:60px;
+	font-size: 40px;
+	border:none;
+	color:white;
+	font-family: courier;
+	text-align: center;
+}
+
+a:link{
+	color:white;
+	text-decoration:none;
+}
+a:hover{
+	color:white;
+	text-decoration:none;
+}
+a:active{
+	color:white;
+	text-decoration:none;
+}
+
+
+.umbrella{
+	width:100%;
+	height:65%;
+	position:relative;
+	border:none;
+	background-color: black;
+	
+}
+
+/*  welcome note field */
+.wlcm-note {
+	position:relative;
+	color:white;
+	top:20px;
+	font-size:30px;
+	font-family:Courier;
+	text-align:center;
+	width:100%;
+	height:30px;
+}

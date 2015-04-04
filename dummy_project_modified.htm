@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="dummy_project_jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="dummy_project_style.css" />
+</head>
+<body>
+  <div class="login-card">
+    <div class="top">
+      <input class="signup-button" type="button" value="Sign Up">
+      <input class="login-button" type="button" value="LogIn" >
+    </div>
+    
+    <br>
+    <br>
+    
+
+
+    <div class="signup-page">
+     <div class="wlcm-note">
+      <p>Sign Up for Free</p>
+    </div>
+    <br>
+    <br>
+    <form name="signup-form" action="signup.php" method="POST">
+      <div class="entry"><div>
+        <input name="fname" class="fname" placeholder="  First Name*" type="text"><input name="lname" class="lname" placeholder="  Last Name*" type="text">
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div>
+        <input name="email" class="email-entry-s" placeholder="  Email Address*" type="email" required>
+      </div>
+      <br>
+      <br>
+      <div>
+        <input name="psw" placeholder="  Set A Password*" class="psw-entry-s" type="password" required>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="bottom">
+      <input name="submits" class="get-in" value="GET STARTED" type="submit">
+    </div>
+  </form>
+</div>
+
+<div class="login-page">
+  <div class="wlcm-note">
+    <p>Welcome Back!</p>
+  </div>
+  <br>
+  <br>
+  <form name="login-form" action="login.php" method="POST">
+    <div class="entry">
+      <input name="email" class="email-entry" placeholder="  Email Address*" type="email" required>
+      <br>
+      <br>
+      <br>
+      <input name="psw" name="psw" placeholder="  Password*" class="psw-entry" type="password" required>
+    </div>
+    <br>
+    <p class="fp">
+      <a href="forget-psw.htm">Forget Password?</a>
+    </p>
+    <br>
+    <div class="bottom">
+      <input name="submitl" class="get-in-log" value="LOG IN" type="submit">
+    </div>
+  </form>
+</div>
+
+
+
+</div>
+</body>
+</html>
