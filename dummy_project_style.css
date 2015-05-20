@@ -93,6 +93,15 @@ p.login-button{
   border: 1px solid white;
 }
 
+.r-button
+{
+  margin-left: 50px;
+  color:red;
+}
+.entry{
+  color:white;
+}
+
 /*css of email and password block of sign up form is as below */
 .email-entry-s,.psw-entry-s{
   background-color:black;
@@ -101,7 +110,7 @@ p.login-button{
   color:grey;
   font-size:20px;
   margin-left:45px;
-  border: 1px solid white;
+  border: 1px solid white
 }
 
 /* forget password css */
