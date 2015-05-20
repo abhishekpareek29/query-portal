@@ -1,3 +1,8 @@
+<?php
+// Start the session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,5 +24,51 @@ Description:
 </form> 
 
 
+<?php
+
+//connection is established
+
+$link = mysql_connect('localhost:/var/run/mysqld/mysqld.sock', 'root', 'Astro@boy29');
+if (!$link) 
+{
+	echo 'connection_aborted';
+    die('Could not connect: ' . mysql_error());
+}
+
+// connected to database
+$db_selected = mysql_select_db('tango', $link);
+if (!$db_selected) 
+{
+    die ('Can\'t use tango : ' . mysql_error());
+}
+
+
+// values from session extracted
+$e = $_SESSION["email_id"];
+$u = $_SESSION["user_type"];
+$p = $_SESSION["password"];
+//-----------validated email-------------------------------------------
+$sql0 = "Select u_email from user where u_email='$e'";
+$retval = mysql_query($sql0, $link);
+$flag1 = mysql_num_rows($retval);
+if($flag1 == 0)
+{
+    echo "<br>You are not logged IN<br>";
+    mysql_close($link);
+}
+//------------------------------------------------------
+
+//------------validated password------------------------------------------
+$sql2 = "Select u_pass from user where u_email='$e'";
+$retval = mysql_query($sql2, $link);
+$flag2 = mysql_num_rows($retval);
+if($flag2 == 0)
+{
+    echo "<br>entered wrong password<br>";
+    mysql_close($link);
+}
+//--------------------------------------------------------
+
+$sql = ""
 </body>
 </html>

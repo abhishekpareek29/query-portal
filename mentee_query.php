@@ -1,3 +1,7 @@
+<?php
+// Start the session
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,64 +9,117 @@
 </head>
 <body>
 
+ 
 <?php
 
 $link = mysql_connect('localhost:/var/run/mysqld/mysqld.sock', 'root', 'Astro@boy29');
-if (!$link) {
+if (!$link) 
+{
 	echo 'connection_aborted';
     die('Could not connect: ' . mysql_error());
 }
-echo 'Connected successfully';
+//echo 'Connected successfully';
 
 $db_selected = mysql_select_db('tango', $link);
-if (!$db_selected) {
+if (!$db_selected) 
+{
     die ('Can\'t use tango : ' . mysql_error());
 }
 
+//----------------connected to Data Base-------------------
 
-if (isset($_POST['submit'])) {
+//echo "<br>session value:".$_SESSION["email_id"]."<br>";
+
+//matching previous session variables below
+$e = $_SESSION["email_id"];
+$u = $_SESSION["user_type"];
+$sql0 = "Select u_email from user where u_email='$e'";
+$retval = mysql_query($sql0, $link);
+$flag1 = mysql_num_rows($retval);
+if($flag1 == 0)
+{
+    echo "<br>You are not logged IN<br>";
+    mysql_close($link);
+}
+// matching password below
+$p = $_SESSION["password"];
+$sql2 = "Select u_pass from user where u_email='$e'";
+$retval = mysql_query($sql2, $link);
+$flag2 = mysql_num_rows($retval);
+if($flag2 == 0)
+{
+    echo "<br>entered wrong password<br>";
+    mysql_close($link);
+}
+
+// ---------------matching or validation of logged user completed -------------------
+
+
+
+if (isset($_POST['submit'])) 
+{
 
 $query = $_POST["querytitle"]; 
 $description = $_POST["message"];
 $tags = $_POST["tags"];
 $tagid = "Select tag_id from tags where tag_keywords='$tags'";
-
+$retval = mysql_query( $tagid, $link );
+//echo " <br> retval:  $retval <br> ";
+if(! $retval)
+{
+    die('Can not find tag:'. mysql_error());
+}
 
 // if (!mysql_query($tagid,$link)) {
 // 	$in_tag = "INSERT into tags(tag_keywords) values('$tags')";
 // 	mysql_query($in_tag,$link);
-// }
-$retval = mysql_query( $tagid, $link );
+}
 
-if(! $retval )
+
+$flag = mysql_num_rows($retval);
+echo "<br> flag value: $flag <br>";
+if($flag == 0)
 {
-  $intag = 'INSERT into tags(tag_keywords) values("$tags")';
+  
+  $intag = "INSERT into tags(tag_keywords) values('$tags')";
   $sql = mysql_query( $intag, $link );
-}  
+  $tagid = "Select tag_id from tags where tag_keywords='$tags'";
+  $retval = mysql_query( $tagid, $link );
+//  echo " <br>retval: $retval<br>";
+
+}
+
 // if(! $sql )
 // {
 //   	die('Could not insert tag:' . mysql_error());
 // }
-$retval = mysql_query( $tagid, $link );
-if(! $retval)
+while($row = mysql_fetch_assoc($retval))
 {
-  	die('Can not find tag:' . mysql_error());
+    echo "<br> tag id :{$row['tag_id']} <br>";
+    $tag_id = $row['tag_id'];
 }
 
 
-$row = mysql_fetch_array($retval, MYSQL_ASSOC);
-echo "<br>{$row['tag_id']}";
-$import="INSERT into queries(query_title,query_desc,tag_id) values('$query','$description',{$row['tag_id']})";
+$sql5 = "Select user_id from user where u_email='$e'";
+$retval = mysql_query($sql5, $link);
+
+while($row = mysql_fetch_assoc($retval))
+{
+    echo "<br> user id :{$row['user_id']} <br>";
+    $user_id = $row['user_id'];
+}
+
+
+$import="INSERT into queries(query_title,query_desc,tag_id,author) values('$query','$description','$tag_id','$user_id')";
 $jojo = mysql_query($import,$link);
+
 if(! $jojo )
 {
  die('Could not insert: ' . mysql_error());
 }
-}
-
 else 
 {
-        echo "FAILED";
+        echo "<br>Your Query is Submitted<br>";
 }
 
 mysql_close($link);
