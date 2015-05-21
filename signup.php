@@ -26,15 +26,15 @@ if (isset($_POST['submits'])) {
 	echo $email;
 	$psw = $_POST["psw"];
 $see = "Select u_email from user where u_email='$email'";
-echo $see;	
+//echo $see;
 $sql = "INSERT into user(u_name,u_email,u_pass,role_id) values('$name','$email','$psw',2)";
 $retval = mysql_query($see, $link);
-echo $retval;
+// echo $retval;
 
 $flag = mysql_num_rows($retval);
 if ($flag != 0)
 {
-	echo "email is already used";
+	echo "Email is already used";
 }
 else
 {
@@ -43,7 +43,7 @@ if(! $filled)
 {
 	die("can not insert user data:" . mysql_error());
 }
-echo "successfully registered";
+echo "Successfully registered";
 }
 }
 ?>
