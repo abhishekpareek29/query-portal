@@ -49,7 +49,7 @@ session_start();
 		echo 'id no:'.$id;
 		// $_SESSION["id2"] = $id;
 		$user_id = $_SESSION["author"];
-		$sql = "Insert into replies (query_id,reply_desc,author) values('$id','$reply','$user_id')";
+		$sql = "INSERT INTO replies (query_id,reply_desc,author) values('$id','$reply','$user_id')";
 		$retval = mysql_query($sql, $link);
 		if(! $retval)
 		{
