@@ -52,23 +52,38 @@ session_start();
 			$password = $row['u_pass'];
 		} 
 
+
 		if($flag == 0)
 		{
 			echo " YOUR ENTERED EMAIL DOES NOT EXIST";
 		}
 		else if ($psw==$password && $role==2 && $user_type=="mentee")
 		{
+			$sql = "select user_id from user where u_email='$email'";
+			$retval = mysql_query($sql, $link);
+			while($row = mysql_fetch_assoc($retval))
+		{
+			$user_id = $row['user_id'];
+		} 
 			$_SESSION["email_id"] = $email;
 			$_SESSION["password"] = $psw;
 			$_SESSION["user_type"] = $user_type;
+			$_SESSION["author"] = $user_id;
 			header("Location: http://mysite1.local/mentee_query.php");
 		}
 		else if ($psw==$password && $role==1 && $user_type=="mentor") 
 		{
+			$sql = "select user_id from user where u_email='$email'";
+			$retval = mysql_query($sql, $link);
+			while($row = mysql_fetch_assoc($retval))
+		{
+			$user_id = $row['user_id'];
+		} 
 			$_SESSION["email_id"] = $email;
 			$_SESSION["password"] = $psw;
 			$_SESSION["user_type"] = $user_type;
-			header("Location: http://mysite1.local/mentor_page.htm");
+			$_SESSION["author"] = $user_id;
+			header("Location: http://mysite1.local/mentor_page.php");
 		}
 		else if ($psw != $password && $user_type=="mentee")
 		{
