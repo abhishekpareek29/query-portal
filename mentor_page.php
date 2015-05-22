@@ -1,40 +1,26 @@
 <?php
 // Start the session
 session_start();
+//connected to db
+include('db_tango.php');
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Mentor_Page</title>
 </head>
 <body>
-	<?php
 
+<?php
 
-//----------Establishing Link and DATABASE connection----------
-
-	$link = mysql_connect('localhost:/var/run/mysqld/mysqld.sock', 'root', 'Astro@boy29');
-	if (!$link) 
-	{
-		echo 'connection_aborted';
-		die('Could not connect: ' . mysql_error());
-	}
-//echo 'Connected successfully';
-
-	$db_selected = mysql_select_db('tango', $link);
-	if (!$db_selected) 
-	{
-		die ('Can\'t use tango : ' . mysql_error());
-	}
-
-//----------------Link & Connection finish -------------------
 
 //----------------Validation of logged user----------------------------
 
 	$email = $_SESSION["email_id"];
 	$psw = $_SESSION["password"];
-	$user_type = $_SESSION["user_type"];
 	$user_id = $_SESSION["mentor_id"];
+	echo 'user_id: '.$user_id;
 
 	$sql = "Select user_id,u_pass,role_id from user where u_email='$email'";
 	$retval = mysql_query($sql, $link);
@@ -51,27 +37,33 @@ session_start();
 
 
 
-	if ($psw2==$psw && $user_type==$user_id2 && $role_id==1) 
+	if ($psw2==$psw && $user_id==$user_id2 && $role_id==1) 
 	{
 
-		$sql = "Select query_id,query_title,query_desc from queries where author='$user_id2'";
+		$sql = "Select query_id,query_title,query_desc,author from queries where mentor_id='$user_id2'";
 		$retval = mysql_query($sql, $link);
-		if (! retval) 
+		if (! $retval) 
 		{
 			die('<br>query fetch error:  ' . mysql_error());
 		}
+
+// queries are printed below
+		echo "<br><br>Please answer these Queries:<br>";
 		while ($row = mysql_fetch_assoc($retval)) 
 		{
-			$query_title = $row['query_title'];
-			$query_desc = $row['query_desc'];
 			$query_id = $row['query_id'];
-
-			echo "<br><a href=replies.php?id=$query_id> {$row['query_title']} </a>";
+			echo "<br><a href=mentor_reply.php?id=$query_id> {$row['query_title']} </a>";
 			echo "<br> {$row['query_desc']}";
-			$ = $row['author'];
-			echo "<br>By: {$name}<br>";	
-		}
 
+			$mentee_id = $row['author'];
+			$sql = "Select u_name from user where user_id=$mentee_id";
+			$retval1 = mysql_query($sql, $link);
+			while ($row = mysql_fetch_assoc($retval1)) 
+			{
+				$name = $row['u_name'];		
+			}	
+			echo "<br>Asked by: ". $name."<br>";
+		}
 	}
 	else
 	{

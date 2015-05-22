@@ -76,13 +76,13 @@ session_start();
 			$sql = "select user_id from user where u_email='$email'";
 			$retval = mysql_query($sql, $link);
 			while($row = mysql_fetch_assoc($retval))
-		{
-			$user_id = $row['user_id'];
-		} 
+			{
+				$user_id = $row['user_id'];
+			} 
 			$_SESSION["email_id"] = $email;
 			$_SESSION["password"] = $psw;
 			$_SESSION["user_type"] = $user_type;
-			$_SESSION["author"] = $user_id;
+			$_SESSION["mentor_id"] = $user_id;
 			header("Location: http://mysite1.local/mentor_page.php");
 		}
 		else if ($psw != $password && $user_type=="mentee")
