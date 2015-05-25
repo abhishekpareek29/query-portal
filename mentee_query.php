@@ -39,7 +39,10 @@ include('db_tango.php');
 
 <?php
 
-    
+
+//---------------------logout link----------------------
+echo "<br><a href=logout.php>LOG OUT</a><br>";    
+
 //echo "<br>session value:".$_SESSION["email_id"]."<br>";
 
 //matching previous session variables below

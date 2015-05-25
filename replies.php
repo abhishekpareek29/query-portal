@@ -19,7 +19,8 @@ session_start();
 	<?php
 
 
-
+//---------------------logout link----------------------
+echo "<br><a href=logout.php>LOG OUT</a><br>"; 
 	
 
 

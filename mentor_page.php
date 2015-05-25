@@ -14,6 +14,10 @@ include('db_tango.php');
 
 <?php
 
+//---------------------logout link----------------------
+echo "<br><a href=logout.php>LOG OUT</a><br>";
+
+
 
 //----------------Validation of logged user----------------------------
 

@@ -14,6 +14,9 @@ include('db_tango.php');
 
 <?php
 
+//---------------------logout link----------------------
+echo "<br><a href=logout.php>LOG OUT</a><br>"; 
+
 //------------------Restoring session variables----------------------
 	$email = $_SESSION["email_id"];
 	$psw = $_SESSION["password"];
