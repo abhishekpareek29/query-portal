@@ -1,7 +1,5 @@
 <?php
-// Start the session
 session_start();
-
 include('db_tango.php');
 ?>
 
@@ -10,74 +8,83 @@ include('db_tango.php');
 <html>
 <head>
     <title>mentee_query_page</title>
+    <link rel="stylesheet" type="text/css" href="query.css" />
 </head>
 <body>
+<div class="form">
     <form action="mentee_query.php" method="POST">
-        Query Title:<br>
-        <input type="text" name="querytitle" value="Title">
+        <p id="query_slogan">Ask Any Question</p><br>
+        <input class="title" type="text" name="querytitle" placeholder="Title">
         <br></br>
-        <input type="text" name="tags" value="tags">
+        <input class="tag" type="text" name="tags" placeholder="Add some Tags">
         <br></br>
-        Description:
-        <textarea name="message" rows="10" cols="30"></textarea>
+
+        <br></br>
+        <textarea class="desc" name="message" rows="10" cols="30" placeholder="Enter Query Description"></textarea>
         <br><br>
         <?php
         $sql = "Select user_id, u_name from user where role_id=1";
         $retval = mysql_query($sql, $link);
         ?>
-        <select name="mentor_list">
+        <select class="list" name="mentor_list">
             <?php
             
             while($row = mysql_fetch_assoc($retval)) 
             {
                 ?>"<option value=<?php echo $row['user_id'] ?> > <?php echo $row['u_name'] ?> </option>";<?php
             }
-            ?>
+        ?>
         </select>
-        <input type="submit" value="submit" name="submit">
+        <input class="submit-button" type="submit" value="submit" name="submit">
     </form> 
-
+</div>
 <?php
 
 
 //---------------------logout link----------------------
 echo "<br><a href=logout.php>LOG OUT</a><br>";    
 
-//echo "<br>session value:".$_SESSION["email_id"]."<br>";
 
-//matching previous session variables below
+//restoring session variables
     $e = $_SESSION["email_id"];
-    $u = $_SESSION["user_type"];
-    echo '<br>'.$e;
-//extracting user id
-    $sql5 = "Select user_id from user where u_email='$e'";
-    $retval = mysql_query($sql5, $link);
+    $role_id = $_SESSION["role_id"];
+    $user_id = $_SESSION["user_id"];
+    // $u = $_SESSION["user_type"];
 
+//extracting user id from data base
+    $sql5 = "Select user_id,role_id from user where u_email='$e'";
+    $retval = mysql_query($sql5, $link);
     while($row = mysql_fetch_assoc($retval))
     {
-        echo "<br> user id :{$row['user_id']} <br>";
-        $user_id = $row['user_id'];
+        // echo "<br> user id :{$row['user_id']} <br>";
+        $user_id_db = $row['user_id'];
+        $role_id_db = $row['role_id'];
     }
-    $_SESSION["user_id"] = $user_id;
 
-    $sql0 = "Select u_email from user where u_email='$e'";
-    $retval = mysql_query($sql0, $link);
-    $flag1 = mysql_num_rows($retval);
-    if($flag1 == 0)
-    {
-        echo "<br>You are not logged IN<br>";
-        mysql_close($link);
-    }
+    if ($user_id_db==$user_id && $role_id==2) {
+        
+    
+
+    // $_SESSION["user_id"] = $user_id;
+
+    // $sql0 = "Select u_email from user where u_email='$e'";
+    // $retval = mysql_query($sql0, $link);
+    // $flag1 = mysql_num_rows($retval);
+    // if($flag1 == 0)
+    // {
+    //     echo "<br>You are not logged IN<br>";
+    //     mysql_close($link);
+    // }
 // matching password below
-    $p = $_SESSION["password"];
-    $sql2 = "Select u_pass from user where u_email='$e'";
-    $retval = mysql_query($sql2, $link);
-    $flag2 = mysql_num_rows($retval);
-    if($flag2 == 0)
-    {
-        echo "<br>entered wrong password<br>";
-        mysql_close($link);
-    }
+    // $p = $_SESSION["password"];
+    // $sql2 = "Select u_pass from user where u_email='$e'";
+    // $retval = mysql_query($sql2, $link);
+    // $flag2 = mysql_num_rows($retval);
+    // if($flag2 == 0)
+    // {
+    //     echo "<br>entered wrong password<br>";
+    //     mysql_close($link);
+    // }
 
 // ---------------matching or validation of logged user completed -------------------
 
@@ -95,6 +102,15 @@ echo "<br><a href=logout.php>LOG OUT</a><br>";
         echo "<br><a href=replies.php?id=$var> {$row['query_title']} </a>";
         echo "<br> {$row['query_desc']} <br><br>";
     }
+}
+
+
+else {
+    echo("You Are Not an Authorized Used");
+    mysql_close($link);
+    echo "<br><a href=dummy_project_modified.htm>Click Here To Log In</a><br>";
+}
+
 
     if (isset($_POST['submit'])) 
     {
@@ -148,8 +164,7 @@ echo "<br><a href=logout.php>LOG OUT</a><br>";
     $import="INSERT into queries(query_title,query_desc,tag_id,author,mentor_id) values('$query','$description','$tag_id','$user_id','$mentor_id')";
     $jojo = mysql_query($import,$link);
 
-    if(! $jojo )
-    {
+    if(! $jojo )    {
        die('Could not insert: ' . mysql_error());
    }
    else 

@@ -19,10 +19,11 @@ echo "<br><a href=logout.php>LOG OUT</a><br>";
 
 //------------------Restoring session variables----------------------
 	$email = $_SESSION["email_id"];
-	$psw = $_SESSION["password"];
-	$user_id = $_SESSION["mentor_id"];
-	echo '<br>mentor_id: '.$user_id;
-	echo '<br>mentor email:'.$email;
+	// $psw = $_SESSION["password"];
+	$user_id = $_SESSION["user_id"];
+	$role_id = $_SESSION["role_id"];
+	// echo '<br>mentor_id: '.$user_id;
+	// echo '<br>mentor email:'.$email;
 
 if (isset($_POST['submit'])) 
 	{
@@ -43,7 +44,7 @@ $_SESSION["id_mentor"] = $id;
 //----------------------Validation of logged user------------------
 
 
-	$sql = "Select user_id,u_pass,role_id from user where u_email='$email'";
+	$sql = "Select user_id,role_id from user where u_email='$email'";
 	$retval = mysql_query($sql, $link);
 	if (! $retval) 
 	{
@@ -51,13 +52,13 @@ $_SESSION["id_mentor"] = $id;
 	}
 	while ($row = mysql_fetch_assoc($retval)) 
 	{
-		$psw2 = $row['u_pass'];
-		$role_id = $row['role_id'];
-		$user_id2 = $row['user_id'];
+		// $psw2 = $row['u_pass'];
+		$role_id_db = $row['role_id'];
+		$user_id_db = $row['user_id'];
 	}
 
 
-	if ($psw2==$psw && $user_id==$user_id2 && $role_id==1) 
+	if ($user_id==$user_id_db && $role_id==1) 
 	{
 		
 ?>

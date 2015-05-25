@@ -9,6 +9,7 @@ include('db_tango.php');
 <html>
 <head>
 	<title>Mentor_Page</title>
+	<link rel="stylesheet" type="text/css" href="query.css" />
 </head>
 <body>
 
@@ -22,11 +23,12 @@ echo "<br><a href=logout.php>LOG OUT</a><br>";
 //----------------Validation of logged user----------------------------
 
 	$email = $_SESSION["email_id"];
-	$psw = $_SESSION["password"];
-	$user_id = $_SESSION["mentor_id"];
-	echo 'user_id: '.$user_id;
+	// $psw = $_SESSION["password"];
+	$user_id = $_SESSION["user_id"];
+	$role_id = $_SESSION["role_id"];
+	// echo 'user_id: '.$user_id;
 
-	$sql = "Select user_id,u_pass,role_id from user where u_email='$email'";
+	$sql = "Select user_id,role_id from user where u_email='$email'";
 	$retval = mysql_query($sql, $link);
 	if (! $retval) 
 	{
@@ -34,21 +36,21 @@ echo "<br><a href=logout.php>LOG OUT</a><br>";
 	}
 	while ($row = mysql_fetch_assoc($retval)) 
 	{
-		$psw2 = $row['u_pass'];
-		$role_id = $row['role_id'];
-		$user_id2 = $row['user_id'];
+		// $psw2 = $row['u_pass'];
+		$role_id_db = $row['role_id'];
+		$user_id_db = $row['user_id'];
 	}
 
 
 
-	if ($psw2==$psw && $user_id==$user_id2 && $role_id==1) 
+	if ($user_id==$user_id_db && $role_id==1) 
 	{
 
-		$sql = "Select query_id,query_title,query_desc,author from queries where mentor_id='$user_id2'";
+		$sql = "Select query_id,query_title,query_desc,author from queries where mentor_id='$user_id_db'";
 		$retval = mysql_query($sql, $link);
 		if (! $retval) 
 		{
-			die('<br>query fetch error:  ' . mysql_error());
+			die('<br>query fetching error:  ' . mysql_error());
 		}
 
 // queries are printed below

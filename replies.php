@@ -1,7 +1,9 @@
 <?php
-// Start the session
 session_start();
+include('db_tango.php');
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,95 +25,82 @@ session_start();
 echo "<br><a href=logout.php>LOG OUT</a><br>"; 
 	
 
-
-	$link = mysql_connect('localhost:/var/run/mysqld/mysqld.sock', 'root', 'Astro@boy29');
-	if (!$link) 
-	{
-		echo 'connection_aborted';
-		die('Could not connect: ' . mysql_error());
-	}
-//echo 'Connected successfully';
-
-	$db_selected = mysql_select_db('tango', $link);
-	if (!$db_selected) 
-	{
-		die ('Can\'t use tango : ' . mysql_error());
-	}
-
-//----------------connected to Data Base above------------------
-
-
 //------upon click or re-reply over query-----------------------
 	if (isset($_POST['submit'])) 
 	{
 		$reply = $_POST["message"];
 		echo $reply;
 		$id = $_SESSION["id"];
-		echo 'id no:'.$id;
+		// echo 'id no:'.$id;
 		// $_SESSION["id2"] = $id;
-		$user_id = $_SESSION["author"];
+		$user_id = $_SESSION["user_id"];
 		$sql = "INSERT INTO replies (query_id,reply_desc,author) values('$id','$reply','$user_id')";
 		$retval = mysql_query($sql, $link);
 		if(! $retval)
 		{
-			echo $id;			
+			// echo $id;			
 			die(mysql_error());
 		}
 
-		header("Location: http://mysite1.local/replies.php?id=$id");
+		header("Location: replies.php?id=$id");
 	}
 
 
 
 // getting id from previous page
 	$id = $_GET['id'];    
-	echo $id;
+	// echo $id;
 	$_SESSION["id"] = $id;
 	// $id2 = $_SESSION["id"];
 	// echo $id2;
 
 
 //-------------------------------------------------------------------------
-//matching previous session variables below or validating logged user------
+//restoring previous session variables
 	$e = $_SESSION["email_id"];
-	$u = $_SESSION["user_type"];
-	echo $e;
-//extracting user id
-	$sql5 = "Select user_id from user where u_email='$e'";
-	$retval = mysql_query($sql5, $link);
+	$role_id = $_SESSION["role_id"];
+    $user_id = $_SESSION["user_id"];
+    // echo $user_id;
+	// $u = $_SESSION["user_type"];
+	// echo $e;
 
+//extracting user id and role id
+	$sql5 = "Select user_id,role_id from user where u_email='$e'";
+	$retval = mysql_query($sql5, $link);
 	while($row = mysql_fetch_assoc($retval))
 	{
-		echo "<br> user id :{$row['user_id']} <br>";
-		$user_idc = $row['user_id'];
-	}
-	$user_id = $_SESSION["author"];
-	if ($user_id != $user_idc) 
-	{
-		echo "you are not authorised, bad user id";
+		// echo "<br> user id :{$row['user_id']} <br>";
+		$user_id_db = $row['user_id'];
+		$role_id_db = $row['role_id'];
 	}
 
-
-	// extracting & matching email id------------------
-	$sql0 = "Select u_email from user where u_email='$e'";
-	$retval = mysql_query($sql0, $link);
-	$flag1 = mysql_num_rows($retval);
-	if($flag1 == 0)
+	// $user_id = $_SESSION["author"];
+	if ($user_id == $user_id_db && $role_id==$role_id_db) 
 	{
-		echo "<br>You are not logged IN<br>";
-		mysql_close($link);
-	}
 
-	// matching password below-------------------------
-	$p = $_SESSION["password"];
-	$sql2 = "Select u_pass from user where u_email='$e'";
-	$retval = mysql_query($sql2, $link);
-	$flag2 = mysql_num_rows($retval);
-	if($flag2 == 0)
-	{
-		echo "<br>Entered wrong password<br>";
-		mysql_close($link);
-	}
+	
+
+
+	// // extracting & matching email id------------------
+	// $sql0 = "Select u_email from user where u_email='$e'";
+	// $retval = mysql_query($sql0, $link);
+	// $flag1 = mysql_num_rows($retval);
+	// if($flag1 == 0)
+	// {
+	// 	echo "<br>You are not logged IN<br>";
+	// 	mysql_close($link);
+	// }
+
+	// // matching password below-------------------------
+	// $p = $_SESSION["password"];
+	// $sql2 = "Select u_pass from user where u_email='$e'";
+	// $retval = mysql_query($sql2, $link);
+	// $flag2 = mysql_num_rows($retval);
+	// if($flag2 == 0)
+	// {
+	// 	echo "<br>Entered wrong password<br>";
+	// 	mysql_close($link);
+	// }
 //-------logged confirmed----------------
 //-------------------------------------------------------------------------------
 
@@ -149,9 +138,14 @@ echo "<br><a href=logout.php>LOG OUT</a><br>";
 
 	}
 
+}
 
+else {
+	echo "You Are Not Logged In";
+	mysql_close($link);
+}
 
-	?>
+?>
 
 
 </body>

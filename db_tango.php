@@ -6,7 +6,7 @@ if (!$link)
    echo 'connection_aborted';
    die('Could not connect: ' . mysql_error());
 }
-//echo 'Connected successfully';
+
 
 $db_selected = mysql_select_db('tango', $link);
 if (!$db_selected) 
