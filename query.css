@@ -1,0 +1,208 @@
+body {
+	background-color: #DBB8FF;
+	color: white;
+	margin-top: -8px;
+}
+
+
+div.top_layer {
+	background-color: rgb(8, 88, 96);
+	position: fixed;
+	font-size: 60px;
+	height: 70px;
+	width: 103%;
+	border-radius: 30px;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 9;
+}
+
+#top_slogan {
+  background: rgb(5, 46, 84);
+  height: 100%;
+  width: 100%;
+  position: relative;
+  font-size: 60px;
+  color: rgb(219, 184, 255);
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-align: center;
+  margin: 0px;
+  border: none;
+  border-radius: 8px;
+
+}
+
+
+div.form {
+  position: fixed;
+  width: 300px;
+  height: 400px;
+  background-color: rgb(5, 46, 84);
+  margin-left: 0px;
+  margin-top: 100px;
+  margin-bottom: 75px;
+  border-radius: 8px;
+  float: left;
+}
+
+#query_slogan {
+	position:relative;
+	color: rgb(219, 184, 255);
+	font-size: 25px;
+	margin-top: 10px;
+	margin-right: 50px;
+	margin-left: 50px;
+	margin-bottom: 10px;
+
+}
+
+
+#title {
+  position: relative;
+  height: 40px;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: auto;
+  color: rgb(0, 0, 0);
+  font-size: xx-large;
+  background-color: rgb(219, 184, 255);
+  border: none;
+}
+
+#tag {
+	position: relative;
+	height: 30px;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: auto;
+	color: rgb(0, 0, 0);
+	font-size: large;
+	background-color: rgb(219, 184, 255);
+	border: none;
+}
+
+#desc {
+	position: relative;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: auto;
+	color: rgb(0,0,0);
+	font-size: small;
+	background-color: rgb(219, 184, 255);
+	border-color: black;
+
+
+}
+
+
+#list {
+	position: relative;
+	height: 30px;
+	width: 50%;
+	border: none;
+	background-color: rgb(219, 184, 255);
+	font-size: small;
+	margin-left: 5%;
+	margin-right: auto;
+}
+
+#submit-button {
+	position: relative;
+	height: 30px;
+	width: 40%;
+	border: none;
+	background-color: rgb(219, 184, 255);
+	font-size: small;
+
+}
+
+a:link{
+  color: rgb(5, 46, 84);
+  text-decoration:none;
+}
+a:hover{
+  color:purple;
+  text-decoration:none;
+}
+
+.logout {
+	position: fixed;
+	top: 500px;
+	left: 20px;
+}
+.logout2 {
+	position: fixed;
+	top: 90px;
+	right: 10px;
+	z-index: 9;
+}
+
+.talks {
+	position: relative;
+	left: 320px;
+	background-color: grey;
+	border-color: black;
+	margin-bottom: 10px;
+	border-radius: 9px;	
+}
+
+.query_label {
+	position: absolute;
+	height: auto;
+	width: 80%;
+	background: rgb(150, 121, 30);
+	color: rgb(219, 184, 255);
+	font-size: 20px;
+	top: 90px;
+	left: 10%;
+	border-radius: 10px;
+	z-index: 2;
+	padding: 10px;
+
+}
+
+.comments {
+	position: relative;
+	height: auto;
+	width: 80%;
+	color: rgb(24, 85, 142);
+	font-size: 20px;
+	top: 100px;
+	left: 10%;
+
+
+}
+
+.reply_form {
+	position: relative;
+	width: 100%;
+	top: 80px;
+
+
+}
+#reply_box {
+	position: relative;
+	background-color: rgb(5, 46, 84);
+	height: 40px;
+	width: 95%;
+	left: 2.5%;
+	border-radius: 5px;
+	color: rgb(219, 184, 255);
+	text-align: center;
+}
+#reply_submit_button {
+	position: relative;
+	height: 40px;
+	width: 50%;
+	background: rgb(150, 121, 30);
+	border: none;
+	font-size: 30px;
+	left: 25%;
+	border-radius: 5px;
+	color: rgb(219, 184, 255);
+
+}
