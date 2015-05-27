@@ -31,6 +31,8 @@ include('db_tango.php');
 
           $intag = "INSERT into tags(tag_keywords) values('$tags')";
           $sql = mysql_query( $intag, $link );
+
+        }
           $tagid = "Select tag_id from tags where tag_keywords='$tags'";
           $retval = mysql_query( $tagid, $link );
 
@@ -48,10 +50,11 @@ include('db_tango.php');
    }
    else {
     mysql_close($link);
+    echo "aaaaaaaaaaaaaaaa";
     header("Location: mentee_query.php");
 
    }
 
-}
+
 }
 ?>
