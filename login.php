@@ -16,16 +16,13 @@ include("db_tango.php");
 	if (isset($_POST['submitl'])) 
 	{
 		$email = $_POST["email"];
-		$psw = $_POST["psw"];
-		$user_type = $_POST["user_type"];
-		
+		$psw = $_POST["psw"];		
 		$sql = "select role_id,u_pass,user_id from user where u_email='$email'";
 		$retval = mysql_query($sql, $link);		
 		$flag = mysql_num_rows($retval);
 
 		while($row = mysql_fetch_assoc($retval))
 		{
-			// echo "<br> role :{$row['role_id']} <br>";
 			$role_id = $row['role_id'];
 			$password = $row['u_pass'];
 			$user_id = $row['user_id'];
@@ -35,7 +32,7 @@ include("db_tango.php");
 
 
 
-		if($flag == 0)
+		if($flag==0)
 		{
 			echo " YOUR ENTERED EMAIL DOES NOT EXIST ";
 		}
@@ -43,8 +40,6 @@ include("db_tango.php");
 		{
  
 			$_SESSION["email_id"] = $email;
-			// $_SESSION["password"] = $psw;
-			// $_SESSION["user_type"] = $user_type;
 			$_SESSION["user_id"] = $user_id;
 			$_SESSION["role_id"] = $role_id;
 
@@ -56,39 +51,12 @@ include("db_tango.php");
 			}
 		}
 
-
-
-		// else if ($psw==$password && $role==1 && $user_type=="mentor") 
-		// {
-		// 	$sql = "select user_id from user where u_email='$email'";
-		// 	$retval = mysql_query($sql, $link);
-		// 	while($row = mysql_fetch_assoc($retval))
-		// 	{
-		// 		$user_id = $row['user_id'];
-		// 	} 
-		// 	$_SESSION["email_id"] = $email;
-		// 	$_SESSION["password"] = $psw;
-		// 	$_SESSION["user_type"] = $user_type;
-		// 	$_SESSION["mentor_id"] = $user_id;
-			
-		// }
-		// else if ($psw != $password && $user_type=="mentee")
-		// {
-		// 	echo "Wrong password ENTERED by mentee";
-		// }
-		// else if ($psw != $password && $user_type=="mentor")
-		// {
-		// 	echo "Wrong password ENTERED by mentor";
-		// }
 		else
 		{
 			echo "You are not authorised for this";
 		}
 	}
-
-
-
-
+	
 	?>
 
 </body>
