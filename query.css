@@ -144,7 +144,9 @@ a:hover{
 .talks {
 	position: relative;
 	left: 320px;
-	background-color: grey;
+	width: 70%;
+	height: auto;
+	background-color: rgba(5, 46, 84, 0.26);
 	border-color: black;
 	margin-bottom: 10px;
 	border-radius: 9px;	
