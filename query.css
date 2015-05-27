@@ -153,8 +153,8 @@ a:hover{
 .query_label {
 	position: absolute;
 	height: auto;
-	width: 80%;
-	background: rgb(150, 121, 30);
+	width: 78%;
+	background: rgba(33, 30, 150, 0.65);
 	color: rgb(219, 184, 255);
 	font-size: 20px;
 	top: 90px;
@@ -169,10 +169,11 @@ a:hover{
 	position: relative;
 	height: auto;
 	width: 80%;
-	color: rgb(24, 85, 142);
+	color: rgb(5, 46, 84);
 	font-size: 20px;
-	top: 100px;
+	top: 165px;
 	left: 10%;
+	background-color: rgba(5, 46, 84, 0.26);
 
 
 }
@@ -180,7 +181,7 @@ a:hover{
 .reply_form {
 	position: relative;
 	width: 100%;
-	top: 80px;
+	top: 139px;
 
 
 }
@@ -198,7 +199,7 @@ a:hover{
 	position: relative;
 	height: 40px;
 	width: 50%;
-	background: rgb(150, 121, 30);
+	background: rgba(33, 30, 150, 0.65);
 	border: none;
 	font-size: 30px;
 	left: 25%;

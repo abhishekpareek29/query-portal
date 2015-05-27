@@ -94,8 +94,8 @@ echo "<br><a href=logout.php>LOG OUT</a><br>";
 			?>
 			<div class="comments"><?php
 			$name = $row2['u_name'];
-			echo "<br>$name: {$row['reply_desc']}<br>";
-			?></div><?php
+			echo "$name: {$row['reply_desc']}<br>";
+			?></div><br><?php
 		}
 
 	}
