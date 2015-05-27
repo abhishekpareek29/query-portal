@@ -13,11 +13,20 @@ include('db_tango.php');
 </head>
 <body>
 
-<?php
+<div class="top_layer">
+    <p id="top_slogan">Query Portal</p>
+</div>
 
+
+
+
+<div class="logout2">
+<?php
 //---------------------logout link----------------------
 echo "<br><a href=logout.php>LOG OUT</a><br>";
-
+?>
+</div>
+<?php
 
 
 //----------------Validation of logged user----------------------------
@@ -54,21 +63,38 @@ echo "<br><a href=logout.php>LOG OUT</a><br>";
 		}
 
 // queries are printed below
-		echo "<br><br>Please answer these Queries:<br>";
-		while ($row = mysql_fetch_assoc($retval)) 
+		?>
+		<div class="query_label">
+		<?php
+		echo "Please answer these Queries<br>";
+		?>
+		</div>
+		<?php
+		while ($row = mysql_fetch_assoc($retval))
 		{
 			$query_id = $row['query_id'];
-			echo "<br><a href=mentor_reply.php?id=$query_id> {$row['query_title']} </a>";
+			?>
+			<div class="comments">
+			<?php
+			echo "<a href=mentor_reply.php?id=$query_id> {$row['query_title']} </a>";
 			echo "<br> {$row['query_desc']}";
-
+			?>
+			</div>
+			<?php	
 			$mentee_id = $row['author'];
 			$sql = "Select u_name from user where user_id=$mentee_id";
 			$retval1 = mysql_query($sql, $link);
 			while ($row = mysql_fetch_assoc($retval1)) 
 			{
 				$name = $row['u_name'];		
-			}	
+			}
+			?>
+			<div class="comments">
+			<?php	
 			echo "<br>Asked by: ". $name."<br>";
+			?>
+			</div><br>
+			<?php
 		}
 	}
 	else

@@ -8,14 +8,22 @@ include('db_tango.php');
 <html>
 <head>
 	<title>Mentor_reply_Page</title>
+	<link rel="stylesheet" type="text/css" href="query.css" />
 </head>
 <body>
 
+<div class="top_layer">
+    <p id="top_slogan">Query Portal</p>
+</div>
+
+<div class="logout2">
+<?php
+//---------------------logout link----------------------
+echo "<br><a href=logout.php>LOG OUT</a><br>";
+?>
+</div>
 
 <?php
-
-//---------------------logout link----------------------
-echo "<br><a href=logout.php>LOG OUT</a><br>"; 
 
 //------------------Restoring session variables----------------------
 	$email = $_SESSION["email_id"];
@@ -61,18 +69,19 @@ $_SESSION["id_mentor"] = $id;
 	if ($user_id==$user_id_db && $role_id==1) 
 	{
 		
-?>
+	//extracting query title below
+	$sql = "Select query_title,query_desc from queries where query_id='$id'";
+	$retval = mysql_query($sql, $link);
+	while ($row = mysql_fetch_assoc($retval)) 
+	{
+		?>
+		<div class="query_label"><?php
+		echo "Query: {$row['query_title']}";
+		echo "<br>Description: {$row['query_desc']}<br>";
+		?></div>
+		<?php		
+	}
 
-	<form action="mentor_reply.php" method="POST">
-		<br>
-		Reply Here:
-		<textarea name="message" rows="10" cols="30"></textarea>
-		<br><br>
-		<input type="submit" value="submit" name="submit">
-	</form>
-
-
-	<?php
 
 	$sql = "Select reply_desc,author from replies where query_id='$id'";
 	$retval = mysql_query($sql, $link);
@@ -88,9 +97,28 @@ $_SESSION["id_mentor"] = $id;
 		while ($row2 = mysql_fetch_assoc($retval2)) 
 		{
 			$name = $row2['u_name'];
-			echo "<br>$name: {$row['reply_desc']}<br>";
+			?>
+			<div class="comments">
+			<?php
+			echo "$name: {$row['reply_desc']}<br>";
+			?>
+			</div><br>
+			<?php
 		}
 	}
+
+	?>
+
+	<div class="reply_form">
+	<form action="mentor_reply.php" method="POST">
+		<br>
+		<textarea id="reply_box" placeholder="Reply Here Please" name="message" rows="10" cols="30"></textarea>
+		<br><br>
+		<input id="reply_submit_button" type="submit" value="REPLY" name="submit">
+	</form>
+	</div>
+
+	<?php
 
 
 }
