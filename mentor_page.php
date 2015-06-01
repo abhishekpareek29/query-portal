@@ -7,6 +7,12 @@ session_start();
 include('db_tango.php');
 include('mentee_funct.php');
 
+//restoring session variables
+$email   = $_SESSION["email_id"];
+$role_id = $_SESSION["role_id"];
+$user_id = $_SESSION["user_id"];
+
+$u_name = getu_name($user_id);
 ?>
 
 <!DOCTYPE html>
@@ -19,25 +25,22 @@ include('mentee_funct.php');
 
 	<div class="top_layer">
 		<p id="top_slogan">Query Portal</p>
+		<div class="nav_bar">
+        <ul>
+           <li><a href="dummy_project_modified.htm">Back</a></li>
+           <li><a href="mentor_page.php">Queries for Me</a></li>
+           <li><a href="account.php">My Account</a></li>
+           <li><a href="logout.php">Log Out</a></li>
+           <?php echo "Welcome  " . $u_name;   ?>
+        </ul>
+    	</div>
 	</div>
-
-	<div class="logout2">
-		<?php
-		logout();		//logout link
-		?>
-	</div>
-
 
 <?php
 
-//Restoring email, user_id, role-id from session
-$email 	 = $_SESSION["email_id"];
-$user_id = $_SESSION["user_id"];
-$role_id = $_SESSION["role_id"];
-
 
 //extracting user id, role_id from data base using email
-$array 		= extract_userid( $email );
+$array 	    = extract_userid( $email );
 $user_id_db = $array['a'];
 $role_id_db = $array['b'];
 

@@ -7,6 +7,13 @@ session_start();
 include('db_tango.php');
 include('mentee_funct.php');
 
+//restoring session variables
+$e = $_SESSION["email_id"];
+$role_id = $_SESSION["role_id"];
+$user_id = $_SESSION["user_id"];
+
+$u_name = getu_name($user_id);
+
 ?>
 
 
@@ -22,16 +29,18 @@ include('mentee_funct.php');
 
 <body>
 
-
 	<div class="top_layer">
 		<p id="top_slogan">Query Portal</p>
-	</div>
+		<div class="nav_bar">
+        <ul>
+           <li><a href="mentee_query.php">Back</a></li>
+           <li><a href="mentee_query.php">My Queries</a></li>
+           <li><a href="account.php">My Account</a></li>
+           <li><a href="logout.php">Log Out</a></li>
+           <?php echo "Welcome " . $u_name;?>
+        </ul>
+    	</div>
 
-	
-	<div class="logout2">
-		<?php
-		logout();		//logout link
-		?>	
 	</div>
 
 
@@ -54,10 +63,6 @@ if (isset($_POST['submit']))
 	$_SESSION["id"] = $id;
 
 
-//restoring previous session variables email, role_id & user_id
-	$e 		 = $_SESSION["email_id"];
-	$role_id = $_SESSION["role_id"];
-	$user_id = $_SESSION["user_id"];
 
 //extracting user id and role id from database
 	$array 		= extract_userid( $e );
@@ -69,10 +74,10 @@ if (isset($_POST['submit']))
 	if ($user_id == $user_id_db && $role_id==$role_id_db) {
 
 	//extracting query title and display it
-		query_title( $id );
+		query_title($id);
 
 	//extracting replies of aforesaid query and display it
-		extract_replies( $id );
+		extract_replies($id, $user_id);
 
 
 		?>
@@ -80,7 +85,7 @@ if (isset($_POST['submit']))
 			<form action="replies.php" method="POST">
 				<br>
 				<textarea id="reply_box" placeholder="Reply Here Please" name="message" rows="10" cols="30"></textarea>
-				<br>
+				<br><br>
 				<input id="reply_submit_button" type="submit" value="REPLY" name="submit">
 			</form>
 		</div>

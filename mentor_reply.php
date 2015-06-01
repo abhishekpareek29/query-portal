@@ -7,6 +7,12 @@ session_start();
 include('db_tango.php');
 include('mentee_funct.php');
 
+//restoring session variables
+$email   = $_SESSION["email_id"];
+$role_id = $_SESSION["role_id"];
+$user_id = $_SESSION["user_id"];
+
+$u_name = getu_name($user_id);
 ?>
 
 <!DOCTYPE html>
@@ -21,29 +27,34 @@ include('mentee_funct.php');
 
 	<div class="top_layer">
 		<p id="top_slogan">Query Portal</p>
+		<div class="nav_bar">
+        <ul>
+           <li><a href="mentor_page.php">Back</a></li>
+           <li><a href="mentor_page.php">Queries for Me</a></li>
+           <li><a href="account.php">My Account</a></li>
+           <li><a href="logout.php">Log Out</a></li>
+           <?php echo "Welcome  " . $u_name;   ?>
+        </ul>
+    	</div>
 	</div>
 
-
-	<div class="logout2">
-		<?php
-		logout();		//logout link
-		?>
-	</div>
-
+	<div class="nav_bar">
+      <ul>
+        <li><a href="mentor_page.php">BACK</a></li>
+        <li><a href="mentor_page.php">Your_Queries</a></li>
+        <li><a href="logout.php">Log Out</a></li>
+      </ul>
+    </div>
 
 <?php
 
-//Restoring email, user_id & role_id from session variables
-$email 	 = $_SESSION["email_id"];
-$user_id = $_SESSION["user_id"];
-$role_id = $_SESSION["role_id"];
 
 //Reply button clicked, receive reply description and id of mentor(user_id from session) 
 if (isset($_POST['submit'])) {
 		$id    = $_SESSION['id_mentor'];									// query id from session
 		$reply = $_POST['message'];											// reply description from form
 		insert_replies( $id, $reply, $user_id );							// Insert reply, query_id & mentor_id
-		header("Location: http://mysite1.local/mentor_reply.php?id=$id");	// Redirected to same page (reload)
+		header("Location: mentor_reply.php?id=$id");						// Redirected to same page (reload)
 	}
 
 // query_id from mentor's page
@@ -64,7 +75,7 @@ if (isset($_POST['submit'])) {
 		query_title( $id );
 
 	//extracting replies and display it
-		extract_replies( $id );
+		extract_replies($id, $user_id);
 
 		?>
 

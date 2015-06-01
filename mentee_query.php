@@ -7,6 +7,13 @@ session_start();
 include('db_tango.php');
 include('mentee_funct.php');
 
+
+//restoring session variables
+$e = $_SESSION["email_id"];
+$role_id = $_SESSION["role_id"];
+$user_id = $_SESSION["user_id"];
+
+$u_name = getu_name($user_id);
 ?>
 
 
@@ -22,8 +29,18 @@ include('mentee_funct.php');
 
     <div class="top_layer">
         <p id="top_slogan">Query Portal</p>
+
+    <div class="nav_bar">
+        <ul>
+           <li><a href="dummy_project_modified.htm">Back</a></li>
+           <li><a href="mentee_query.php">My Queries</a></li>
+           <li><a href="account.php">My Account</a></li>
+           <li><a href="logout.php">Log Out</a></li>
+           <?php echo "Welcome  " . $u_name;   ?>
+        </ul>
     </div>
 
+</div>
     <div class="form">
 
         <form action="mentee_submit_query.php" method="POST">
@@ -55,22 +72,9 @@ include('mentee_funct.php');
         </form> 
     </div>
 
-
-
-
-
-    <div class="logout">
-        <?php
-        logout();           //logout link echo  
-        ?>
-    </div>
     <?php
 
-    //restoring session variables
-    $e = $_SESSION["email_id"];
-    $role_id = $_SESSION["role_id"];
-    $user_id = $_SESSION["user_id"];
-    // $u = $_SESSION["user_type"];
+
 
     //extracting user id from data base
     $array = extract_userid( $e );

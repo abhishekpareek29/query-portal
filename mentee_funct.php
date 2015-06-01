@@ -30,15 +30,39 @@ function extract_query($user_id) {
 		$var = $row['query_id'];
 		?>
 		
-		<div class="talks">
-			<?php        
-			echo "<br><a href=replies.php?id=$var> {$row['query_title']} </a>";
-			echo "<br> {$row['query_desc']} <br><br>";
-			?>
-		</div>
+		<table class="talks">
+			<tr>
+			<td class="title">
+				<?php
+				$title = myTruncate2($row['query_title'], 25);
+				echo "<a href=replies.php?id=$var> {$title} </a>"; 
+				?>
+			</td>
+			<td class="desc">
+				<?php 
+				$description = myTruncate2($row['query_desc'], 100);
+				echo "{$description}"; 
+				?>
+			</td>
+			</tr>
+		</table>
 		
 		<?php      
 	}
+}
+
+// Truncates the long strings to small.
+function myTruncate2($string, $limit, $break=" ", $pad="...")
+{
+  // return with no change if string is shorter than $limit
+  if(strlen($string) <= $limit) return $string;
+
+  $string = substr($string, 0, $limit);
+  if(false !== ($breakpoint = strrpos($string, $break))) {
+    $string = substr($string, 0, $breakpoint);
+  }
+
+  return $string . $pad;
 }
 
 
@@ -73,7 +97,7 @@ function query_title( $id ) {
 
 
 // extracts replies corresponding to a particular query using query_id ($id)
-	function extract_replies( $id ) {
+/*	function extract_replies($id, $user_id) {
 		global $link;
 		
 		$sql = "Select reply_desc,author from replies where query_id='$id'";
@@ -87,16 +111,46 @@ function query_title( $id ) {
 			while ($row2 = mysql_fetch_assoc($retval2)) {
 				?>
 				<div class="comments">
-					<?php
+				<?php 
+
 					$name = $row2['u_name'];
-					echo "$name: {$row['reply_desc']}<br>";
-					?>
-				</div><br>
+    				echo "$name: {$row['reply_desc']}<br>"; 
+				?>
+				</div>
 				<?php
 				}
-
 			}
 		}
+*/
+
+function extract_replies($id, $user_id) {
+		global $link;
+		
+		$sql = "Select reply_desc,author from replies where query_id='$id'";
+		$retval = mysql_query($sql, $link);
+
+		while ($row = mysql_fetch_assoc($retval)) {	
+			$author = $row['author'];
+				if ($user_id == $author) {
+					?><div class="right">
+					<?php
+    				echo "{$row['reply_desc']}<br>";
+    				?>
+    				</div> 
+    				<?php
+    			}
+    			else {
+    					?><div class="left">
+    					<?php
+	    				echo "{$row['reply_desc']}<br>";
+    					?>
+    					</div>
+    					<?php
+    				}	
+				}
+			}
+		
+
 
 
 // Insert replies, Query_id and user_id(author of reply)
@@ -111,8 +165,8 @@ function query_title( $id ) {
 
 
 //Extracts Queries Asked from mentor
-		function queries_for_mentor( $user_id_db ) {
-			global $link;					
+		function queries_for_mentor($user_id_db) {
+			global $link;
 
 			// Extracts all Query_title, description, author (who asked) using mentor's user_id
 			$sql 	= "Select query_id,query_title,query_desc,author from queries where mentor_id='$user_id_db'";
@@ -122,38 +176,50 @@ function query_title( $id ) {
 			}
 			while ($row = mysql_fetch_assoc($retval)) {
 				$query_id = $row['query_id'];
-				?>
-				
-				<div class="comments">
-					<?php
-					echo "<a href=mentor_reply.php?id=$query_id> {$row['query_title']} </a>";
-					echo "<br> {$row['query_desc']}";
-					?>
-				</div>
 
-				<?php	
-				
 				//To display name under asked query as "Asked By: [mentee's name]"
 				//Extract name of mentee from database
 				$mentee_id = $row['author'];
-				$sql = "Select u_name from user where user_id=$mentee_id";
-				$retval1 = mysql_query($sql, $link);
-				while ($row = mysql_fetch_assoc($retval1)) {
-					$name = $row['u_name'];		
+				$sql_mentee_name = "Select u_name from user where user_id=$mentee_id";
+				$retval1 = mysql_query($sql_mentee_name, $link);
+				while ($row1 = mysql_fetch_assoc($retval1)) {
+					$name = $row1['u_name'];		
 				}
-				
+
 				?>
 				
-				<div class="comments">
-					<?php	
-					echo "<br>Asked by: ". $name."<br>";
-					?>
-				</div><br>
+				<table class="mentor_talks">
+				<tr>
+					<td class="query_from"><?php echo $name; ?></td>
+					<td class="title">
+							<?php 
+							$title = myTruncate2($row['query_title'], 25);
+							echo "<a href=mentor_reply.php?id=$query_id> {$title} </a>";
+							?>
+					</td>
+					<td class="desc">
+							<?php
+							$description = myTruncate2($row['query_desc'], 80);
+							echo "{$description}"; 
+							?>
+					</td>
+				</tr>
+				</table>
+			
 				
 				<?php
 			}
 		}
 
+function getu_name($user_id) {
+global $link;
 
+$sql = "Select u_name from user where user_id=$user_id";
+$retval = mysql_query($sql, $link);
+while ($row = mysql_fetch_assoc($retval)) {
+      $u_name = $row['u_name'];
+} 
+return $u_name;
+}
 
 		?>

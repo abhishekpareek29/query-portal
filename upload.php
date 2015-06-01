@@ -1,3 +1,21 @@
+<?php
+
+// Start the session
+//connection established to database
+//function file included
+session_start();
+include('db_tango.php');
+include('mentee_funct.php');
+
+//restoring session variables
+$email   = $_SESSION["email_id"];
+$role_id = $_SESSION["role_id"];
+$user_id = $_SESSION["user_id"];
+
+$u_name = getu_name($user_id);
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +27,22 @@
 
 	<div class="top_layer">
 		<p id="top_slogan">Query Portal</p>
+		<div class="nav_bar">
+        <ul>
+           <li><a href="dummy_project_modified.htm">Back</a></li>
+           <li><a href="mentorlist.php">Mentor & Mentee List</a></li>
+            <li><a href="logout.php">Log Out</a></li>
+           <li><a href="account_admin.php">My Account</a></li>
+           <?php echo "Welcome  " . $u_name;   ?>
+        </ul>
+    	</div>
 	</div>
 
 	<div id="container2">
 		<div id="form2">
 
 			<?php
-		//database connection established 
-			include('db_tango.php');
+
 
 		//Upload File upon submit
 			if (isset($_POST['submit'])) {
@@ -44,7 +70,7 @@
 
 				print "Import done";
 
-				$to 		= "abhishekpareek29@gmail.com";
+				$to 	 = "abhishekpareek29@gmail.com";
 				$subject = "This is a mail from local host";
 				$message = "Sign up as mentor at query portal";
 				$header  = "From:abhishek.pareek@innoraft.com \r\n";
