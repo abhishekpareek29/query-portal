@@ -55,7 +55,7 @@ if ($user_id == $user_id_db && $role_id == 1)
 		<?php
 		echo "Please answer these Queries<br>";
 		?>
-	</div>
+	</div><br>
 	<?php
 
 	//Display only those queries asked from that mentor

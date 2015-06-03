@@ -44,7 +44,7 @@ $u_name = getu_name($user_id);
     <div class="form">
 
         <form action="mentee_submit_query.php" method="POST">
-            <p id="query_slogan">Ask Any Question</p><br>
+            <p id="query_slogan">Ask Any Question</p>
             <input id="title" type="text" name="querytitle" placeholder="Title">
             <br></br>
             <input id="tag" type="text" name="tags" placeholder="Add some Tags">
