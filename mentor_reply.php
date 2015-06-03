@@ -31,7 +31,7 @@ $u_name = getu_name($user_id);
         <ul>
            <li><a href="mentor_page.php">Back</a></li>
            <li><a href="mentor_page.php">Queries for Me</a></li>
-           <li><a href="account.php">My Account</a></li>
+           <li><a href="account_mentor.php">My Account</a></li>
            <li><a href="logout.php">Log Out</a></li>
            <?php echo "Welcome  " . $u_name;   ?>
         </ul>

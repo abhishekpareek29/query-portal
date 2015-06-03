@@ -18,7 +18,7 @@ $u_name = getu_name($user_id);
 <!DOCTYPE html>
 <html>
 <head>
-    <title>mentee_query_page</title>
+    <title>My Account</title>
     <link rel="stylesheet" type="text/css" href="query.css" />
 </head>
 
@@ -30,7 +30,7 @@ $u_name = getu_name($user_id);
 
     <div class="nav_bar">
         <ul>
-           <li><a href="">Back</a></li>
+           <li><a href="mentee_query.php">Home</a></li>
            <li><a href="mentee_query.php">My Queries</a></li>
            <li><a href="account.php">My Account</a></li>
            <li><a href="logout.php">Log Out</a></li>
@@ -48,13 +48,12 @@ $u_name = getu_name($user_id);
 // 	$u_name = $row['u_name'];
 // 	$u_email = $row['u_email'];
 // }
-
 ?>
+
 
 <div class="query_label">
 <?php
 echo "Name: " . $u_name;
-
 echo "<br><br>Email Address: " . $e;
 ?>
 </div>

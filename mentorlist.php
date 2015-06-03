@@ -29,10 +29,10 @@ $u_name = getu_name($user_id);
 		<p id="top_slogan">Query Portal</p>
 		<div class="nav_bar">
         <ul>
-           <li><a href="dummy_project_modified.htm">Back</a></li>
+           <li><a href="upload.php">Upload Mentors</a></li>
            <li><a href="mentorlist.php">Mentor & Mentee List</a></li>
             <li><a href="logout.php">Log Out</a></li>
-           <li><a href="account.php">My Account</a></li>
+           <li><a href="account_admin.php">My Account</a></li>
            <?php echo "Welcome  " . $u_name;   ?>
         </ul>
     	</div>
