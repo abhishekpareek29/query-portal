@@ -1,8 +1,10 @@
 <?php
 
+//start session
 session_start();
+//destroy session 
 session_destroy();
-
-header("Location: http://mysite1.local/dummy_project_modified.htm");
+//redirect to login page
+header("Location: dummy_project_modified.htm");
 
 ?>

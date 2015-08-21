@@ -1,8 +1,18 @@
 <?php
+
 // Start the session
+//connection established to database
+//function file included
 session_start();
-//connected to db
 include('db_tango.php');
+include('mentee_funct.php');
+
+//restoring session variables
+$email   = $_SESSION["email_id"];
+$role_id = $_SESSION["role_id"];
+$user_id = $_SESSION["user_id"];
+
+$u_name = getu_name($user_id);
 ?>
 
 <!DOCTYPE html>
@@ -13,97 +23,59 @@ include('db_tango.php');
 </head>
 <body>
 
-<div class="top_layer">
-    <p id="top_slogan">Query Portal</p>
-</div>
+	<div class="top_layer">
+		<p id="top_slogan">Query Portal</p>
+		<div class="nav_bar">
+        <ul>
+           <li><a href="dummy_project_modified.htm">Back</a></li>
+           <li><a href="mentor_page.php">Queries for Me</a></li>
+           <li><a href="account_mentor.php">My Account</a></li>
+           <li><a href="logout.php">Log Out</a></li>
+           <?php echo "Welcome  " . $u_name;   ?>
+        </ul>
+    	</div>
+	</div>
 
-
-
-
-<div class="logout2">
 <?php
-//---------------------logout link----------------------
-echo "<br><a href=logout.php>LOG OUT</a><br>";
-?>
-</div>
-<?php
 
 
-//----------------Validation of logged user----------------------------
-
-	$email = $_SESSION["email_id"];
-	// $psw = $_SESSION["password"];
-	$user_id = $_SESSION["user_id"];
-	$role_id = $_SESSION["role_id"];
-	// echo 'user_id: '.$user_id;
-
-	$sql = "Select user_id,role_id from user where u_email='$email'";
-	$retval = mysql_query($sql, $link);
-	if (! $retval) 
-	{
-		die(mysql_error());
-	}
-	while ($row = mysql_fetch_assoc($retval)) 
-	{
-		// $psw2 = $row['u_pass'];
-		$role_id_db = $row['role_id'];
-		$user_id_db = $row['user_id'];
-	}
+//extracting user id, role_id from data base using email
+$array 	    = extract_userid( $email );
+$user_id_db = $array['a'];
+$role_id_db = $array['b'];
 
 
+//matching both user_id from session and from database
+//also check for role_id to match that of mentor i.e. 1
+if ($user_id == $user_id_db && $role_id == 1) 
+{
 
-	if ($user_id==$user_id_db && $role_id==1) 
-	{
-
-		$sql = "Select query_id,query_title,query_desc,author from queries where mentor_id='$user_id_db'";
-		$retval = mysql_query($sql, $link);
-		if (! $retval) 
-		{
-			die('<br>query fetching error:  ' . mysql_error());
-		}
-
-// queries are printed below
-		?>
-		<div class="query_label">
+	?>
+	<div class="query_label">
 		<?php
 		echo "Please answer these Queries<br>";
 		?>
-		</div>
-		<?php
-		while ($row = mysql_fetch_assoc($retval))
-		{
-			$query_id = $row['query_id'];
-			?>
-			<div class="comments">
-			<?php
-			echo "<a href=mentor_reply.php?id=$query_id> {$row['query_title']} </a>";
-			echo "<br> {$row['query_desc']}";
-			?>
-			</div>
-			<?php	
-			$mentee_id = $row['author'];
-			$sql = "Select u_name from user where user_id=$mentee_id";
-			$retval1 = mysql_query($sql, $link);
-			while ($row = mysql_fetch_assoc($retval1)) 
-			{
-				$name = $row['u_name'];		
-			}
-			?>
-			<div class="comments">
-			<?php	
-			echo "<br>Asked by: ". $name."<br>";
-			?>
-			</div><br>
-			<?php
-		}
-	}
-	else
-	{
-		echo "You are not authorised user of this account";
-	}
+	</div><br>
+	<?php
 
-
+	//Display only those queries asked from that mentor
+	queries_for_mentor( $user_id_db );
+}
+else
+{ 
 	?>
+	<div class="query_label">
+		<?php 
+		//if found illegal  user display message and exit
+		echo "You are not authorised user of this account";
+		exit();
+		?>
+	</div>
+	<?php
+}
+
+
+?>
 
 
 

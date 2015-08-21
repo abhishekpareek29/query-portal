@@ -86,11 +86,13 @@ p.login-button{
 .email-entry,.psw-entry{
   background-color:black;
   height:45px;
-  width:85%;
+  width:81%;
   color:grey;
   font-size:20px;
   margin-left:45px;
   border: 1px solid white;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .r-button
@@ -106,11 +108,13 @@ p.login-button{
 .email-entry-s,.psw-entry-s{
   background-color:black;
   height:45px;
-  width:85%;
+  width:81%;
   color:grey;
   font-size:20px;
   margin-left:45px;
-  border: 1px solid white
+  border: 1px solid white;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /* forget password css */
@@ -175,23 +179,26 @@ a:active{
 .fname{
  background-color:black;
  height:45px;
- width:40%;
+ width:37%;
  color:grey;
  font-size:20px;
  margin-left:45px;
  border: 1px solid white;
  float:left;
+ padding-left: 10px;
+ padding-right: 10px;
 }
 
 /* css of Last name input field */
 .lname{
  background-color:black;
  height:45px;
- width:40%;
+ width:37%;
  color:grey;
  font-size:20px;
  margin-right:45px;
  border: 1px solid white;
  float:right;
-
+ padding-left: 10px;
+ padding-right: 10px;
 }
